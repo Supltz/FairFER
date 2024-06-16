@@ -1,16 +1,16 @@
-from utils import *
+from utils import * # type: ignore
 import numpy as np
-from resnets import *
+from models.resnets import *
 import torch.optim as optim
 from torch.utils.data import DataLoader
 import torch
 import torch.nn as nn
 from tqdm import tqdm
-from torch.utils.tensorboard import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter # type: ignore
 import argparse
 from dataset import *
-from EfficientNets import *
-from swin_transformer import *
+from models.EfficientNets import *
+from models.swin_transformer import *
 from vit_pytorch import ViT
 
 
