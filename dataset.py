@@ -1,7 +1,7 @@
 from PIL import Image
 from torchvision import transforms
 import torch
-from utils import RAF_GetLabel, FER_GetLabel, UTK_GetLabel
+from utils import RAF_GetLabel, UTK_GetLabel
 
 import pandas as pd
 import torch
@@ -10,29 +10,6 @@ from torchvision import transforms
 from PIL import Image
 from torch.utils.data import Dataset
 
-class CeleADataset(Dataset):
-    def __init__(self, data, labels, path):
-        self.data = data
-        self.labels = labels
-        self.path = path
-        self.transform_train = transforms.Compose([
-            transforms.ToTensor(),
-            # transforms.Resize(240),
-            # transforms.RandomCrop(224),
-            # transforms.RandomHorizontalFlip(),
-            # transforms.Normalize((0.5355, 0.4249, 0.3801), (0.2832, 0.2578, 0.2548)),
-        ])
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        #sample_data = self.path + self.data[idx]
-        sample_data = f"/vol/lian/datasets/CelebA_aligned/processed/img_align_celeba_aligned/frame_det_00_{self.data[idx].split('/')[-1].split('.')[0]}.bmp"
-        image = Image.open(sample_data)
-        image = self.transform_train(image)
-        labels = torch.vstack((torch.tensor(self.labels[idx][0]), torch.tensor(self.labels[idx][1])))
-        return image,labels
 
 
 class RAFDataset(Dataset):
@@ -205,61 +182,6 @@ class FairfaceDataset(Dataset):
 
             return image, labels_tensor, file_path
 
-class FERDataset(Dataset):
-    def __init__(self, data, path, mode):
-        self.data = data
-        self.path = path
-        self.mode = mode
-        self.transform_train = transforms.Compose([
-            transforms.Resize((240, 240)),
-            transforms.RandomCrop(224),
-            transforms.RandomRotation((-15, 15)),
-            transforms.RandomHorizontalFlip(),
-            transforms.Grayscale(num_output_channels=3),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-
-        ])
-
-        self.transform_val = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.Grayscale(num_output_channels=3),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-
-        ])
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        if self.mode == 'train':
-            sample_data = self.path + "FER2013Train/" + self.data[idx]
-            image = Image.open(sample_data)
-            image = self.transform_train(image)
-            labels = FER_GetLabel(self.data[idx])
-            return image, torch.tensor(labels)
-        elif self.mode == 'val':
-            sample_data = self.path + "FER2013Valid/" + self.data[idx]
-            image = Image.open(sample_data)
-            image = self.transform_val(image)
-            labels = FER_GetLabel(self.data[idx])
-            return image,torch.tensor(labels)
-        elif self.mode == 'test':
-            sample_data = self.path + "FER2013Test/" + self.data[idx]
-            image = Image.open(sample_data)
-            image = self.transform_val(image)
-            labels = FER_GetLabel(self.data[idx])
-            return image,torch.tensor(labels)
-        else:
-
-            # to be implemented
-            sample_data = self.path + "FER2013Train/" + self.data[idx]
-            image = Image.open(sample_data)
-            image = self.transform_val(image)
-            labels = RAF_GetLabel(self.data[idx])
-            labels = torch.tensor((labels["emotion"], labels["gender"], labels["age"], labels["race"]))
-            return image, labels, sample_data
 
 
 class UTKDataset(Dataset):
@@ -308,47 +230,3 @@ class UTKDataset(Dataset):
 
             return image, labels, sample_data
 
-
-
-class ExpDataset(Dataset):
-    def __init__(self, data, mode):
-        self.data = data
-        self.mode = mode
-        self.image_list = list(self.data.keys())
-        self.transform_train = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomApply([
-                transforms.RandomAffine(20, scale=(0.8, 1), translate=(0.2, 0.2)),
-            ], p=0.7),
-
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                 std=[0.229, 0.224, 0.225]),
-            transforms.RandomErasing(),
-        ])
-
-        self.transform_val = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                 std=[0.229, 0.224, 0.225])])
-
-    def __len__(self):
-        return len(self.image_list)
-
-    def __getitem__(self, idx):
-        image_path = self.image_list[idx]
-        image = Image.open(image_path)
-        if self.mode == 'train':
-            image = self.transform_train(image)
-            label = self.data[image_path]
-            return image, label
-        elif self.mode == 'val':
-            image = self.transform_val(image)
-            label = self.data[image_path]
-            return image,label
-        else:
-            image = self.transform_val(image)
-            label = self.data[image_path]
-            return image, label, image_path
