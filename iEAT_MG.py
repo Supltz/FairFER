@@ -182,7 +182,7 @@ def main(emo_dataset, attr_dataset, attribute, model):
     d_effect_sizes = calculate_effect_size(original_diff_scores, cosine_sim_matrix, pairs, emotion_groups)
 
     # Open a text file to write the output
-    with open(f"./effect_size/{attribute}_{emo_dataset}_{attr_dataset}_differential_scores_and_effects.txt", "w") as file:
+    with open(f"./effect_size/{attribute}_{emo_dataset}_{attr_dataset}_{args.model}_differential_scores_and_effects.txt", "w") as file:
         print("P-Values for Differential Scores:")
         file.write("P-Values for Differential Scores:\n")
         for i, emotion in enumerate(emotions):
