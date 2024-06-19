@@ -1,4 +1,4 @@
-# iEAT-MG
+# iEAT-MG (Image Embedding Association Test for Multiple Groups)
 
 ## Training the encoders
 
