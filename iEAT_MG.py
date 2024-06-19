@@ -22,28 +22,6 @@ def group_embeddings_by_labels(data, embeddings_key, label_key):
     return {label: torch.stack(embeds) for label, embeds in grouped.items()}
 
 
-def calculate_effect_size(differential_scores):
-    """
-    Calculate the effect size d for differential scores.
-
-    Args:
-    - differential_scores (Tensor): A tensor of differential scores.
-
-    Returns:
-    - d (Tensor): The calculated effect size for each pair of attributes.
-    """
-    # Calculate the mean of the differential scores
-    mean_diff_scores = differential_scores.mean(dim=0)
-
-    # Calculate the standard deviation of the differential scores
-    std_diff_scores = differential_scores.std(dim=0, unbiased=True)
-
-    # Calculate the effect size d
-    d = mean_diff_scores / std_diff_scores
-
-    return d
-
-
 def calculate_scores_and_differential(emotion_groups, attribute_groups, device='cuda'):
     emotion_labels = sorted(emotion_groups.keys())
     attribute_labels = sorted(attribute_groups.keys())
@@ -107,7 +85,7 @@ def apply_permuted_labels_to_dataset(permuted_labels, attr_data):
 
     # Convert lists to tensors for each group
     for label in permuted_attr_groups:
-        permuted_attr_groups[label] = torch.stack(permuted_attr_groups[label])
+        permuted_attr_groups[label] = torch.stack(permuted_attr_groups[label]) # type: ignore
 
     return permuted_attr_groups
 def calculate_p_values(original_diff_scores, permuted_diff_scores_list):
@@ -172,9 +150,9 @@ def print_differential_scores(matrix, row_labels, pair_labels, title):
         print(row)
     print("\n")
 
-def main(emo_dataset, attr_dataset, attribute):
-    emo_data = load_data('{}_data.json'.format(emo_dataset))
-    attr_data =  load_data('{}_{}_data.json'.format(attr_dataset,attribute))
+def main(emo_dataset, attr_dataset, attribute, model):
+    emo_data = load_data('./saved_embeddings/{}_emotion_{}.json'.format(emo_dataset,model))
+    attr_data =  load_data('./saved_embeddings/{}_{}_{}.json'.format(attr_dataset,attribute, model))
     emotion_groups = group_embeddings_by_labels(emo_data, 'emotion_embeddings', 'emotion_label')
     attr_groups = group_embeddings_by_labels(attr_data, f'{attribute}_embeddings', f'{attribute}_label')
 
@@ -204,7 +182,7 @@ def main(emo_dataset, attr_dataset, attribute):
     d_effect_sizes = calculate_effect_size(original_diff_scores, cosine_sim_matrix, pairs, emotion_groups)
 
     # Open a text file to write the output
-    with open(f"{attribute}_{emo_dataset}_{attr_dataset}_differential_scores_and_effects.txt", "w") as file:
+    with open(f"./effect_size/{attribute}_{emo_dataset}_{attr_dataset}_differential_scores_and_effects.txt", "w") as file:
         print("P-Values for Differential Scores:")
         file.write("P-Values for Differential Scores:\n")
         for i, emotion in enumerate(emotions):
@@ -230,10 +208,11 @@ def main(emo_dataset, attr_dataset, attribute):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Calculate Differential Association Scores")
-    parser.add_argument('--attribute', choices=['age', 'gender', 'race'], required=True)
-    parser.add_argument('--emo_dataset', choices=['rafdb', 'affectnet'], required=True)
-    parser.add_argument('--attr_dataset', choices=['fairface', 'utk'], required=True)
+    parser.add_argument('--attribute', choices=['age', 'gender', 'race', 'emotion'], required=True)
+    parser.add_argument('--emo_dataset', choices=['RAF', 'AffectNet'], required=True)
+    parser.add_argument('--attr_dataset', choices=['Fairface', 'UTK'], required=True)
+    parser.add_argument('--model', required=True, type=str)
     args = parser.parse_args()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    main(args.emo_dataset,args.attr_dataset, args.attribute)
+    main(args.emo_dataset,args.attr_dataset, args.attritbue, args.model)
