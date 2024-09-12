@@ -1,0 +1,64 @@
+Comparison: RAF-DB vs UTKFace
+Emotion: Surprise
+Age Group Pair | D Value | P Value
+White vs Black | -0.0017110201272889424 | 0.0344
+White vs Asian | -0.0077591407169642565 | 0.0187
+White vs Indian | -0.00048167485764902273 | 0.0388
+Black vs Asian | 0.004498241393662382 | 0.0232
+Black vs Indian | 0.007185686141118888 | 0.0264
+Asian vs Indian | 0.0032679081615940124 | 0.0227
+
+Emotion: Fear
+Age Group Pair | D Value | P Value
+White vs Black | -0.004836354197659887 | 0.0374
+White vs Asian | -0.00924838046288005 | 0.0498
+White vs Indian | -0.005854245465699754 | 0.0167
+Black vs Asian | 0.004115630587330835 | 0.0097
+Black vs Indian | 0.01067916667399774 | 0.0087
+Asian vs Indian | 0.005144182951506327 | 0.0322
+
+Emotion: Disgust
+Age Group Pair | D Value | P Value
+White vs Black | -0.0005356669089691488 | 0.0119
+White vs Asian | -0.0032462409629298865 | 0.0156
+White vs Indian | -0.006177370418134808 | 0.0056
+Black vs Asian | 0.0037835667499830947 | 0.0332
+Black vs Indian | 0.0067162722951837305 | 0.0336
+Asian vs Indian | -0.000540560760088671 | 0.0332
+
+Emotion: Happiness
+Age Group Pair | D Value | P Value
+White vs Black | 0.9492346414763014 | 0.0029
+White vs Asian | 0.4094920750873728 | 0.0177
+White vs Indian | 0.26801826993037914 | 0.0183
+Black vs Asian | 0.15340166418998108 | 0.0465
+Black vs Indian | 0.015773317579720527 | 0.0037
+Asian vs Indian | -0.530920012194156 | 0.0332
+
+Emotion: Sadness
+Age Group Pair | D Value | P Value
+White vs Black | 0.0014870966131685565 | 0.0256
+White vs Asian | 1.7517500624795825e-05 | 0.0332
+White vs Indian | -0.011466171392761038 | 0.037
+Black vs Asian | 0.00846027070261274 | 0.0038
+Black vs Indian | 8.506017891821101e-06 | 0.002
+Asian vs Indian | 0.0014927804325654565 | 0.0345
+
+Emotion: Anger
+Age Group Pair | D Value | P Value
+White vs Black | 0.09891415745996718 | 0.0135
+White vs Asian | -0.7652311484057394 | 0.0132
+White vs Indian | -0.2409504380411854 | 0.0098
+Black vs Asian | 0.187654357432975 | 0.0156
+Black vs Indian | 0.7199013452811894 | 0.0015
+Asian vs Indian | -0.15028826890547367 | 0.0124
+
+Emotion: Neutral
+Age Group Pair | D Value | P Value
+White vs Black | -0.00028871991455674246 | 0.0494
+White vs Asian | -0.005013475401194056 | 0.0239
+White vs Indian | -0.004677514911314927 | 0.0109
+Black vs Asian | 0.005307711595547866 | 0.0234
+Black vs Indian | 0.004943372672525896 | 0.0369
+Asian vs Indian | -0.00027137420950481465 | 0.0273
+

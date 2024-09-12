@@ -1,0 +1,29 @@
+Comparison: RAF vs UTK
+Expression: Surprise
+D Value | P Value
+D-Value: 0.009835289013368513 | P-Value: 0.0236
+
+Expression: Fear
+D Value | P Value
+D-Value: 0.3195449848378691 | P-Value: 0.0052
+
+Expression: Disgust
+D Value | P Value
+D-Value: 0.20979625010481834 | P-Value: 0.0279
+
+Expression: Happiness
+D Value | P Value
+D-Value: -1.5278861760970859 | P-Value: 0.041
+
+Expression: Sadness
+D Value | P Value
+D-Value: -0.3093789542176115 | P-Value: 0.0413
+
+Expression: Anger
+D Value | P Value
+D-Value: 0.7789322939085898 | P-Value: 0.0336
+
+Expression: Neutral
+D Value | P Value
+D-Value: -0.17962661745060893 | P-Value: 0.0469
+

@@ -1,0 +1,29 @@
+Comparison: Aff vs F.F
+Expression: Surprise
+D Value | P Value
+D-Value: 0.030104004209299012 | P-Value: 0.042
+
+Expression: Fear
+D Value | P Value
+D-Value: -0.12969725283126887 | P-Value: 0.0079
+
+Expression: Disgust
+D Value | P Value
+D-Value: -0.3692834610495785 | P-Value: 0.0127
+
+Expression: Happiness
+D Value | P Value
+D-Value: -0.6289120203096732 | P-Value: 0.0332
+
+Expression: Sadness
+D Value | P Value
+D-Value: 0.4092397939732465 | P-Value: 0.0124
+
+Expression: Anger
+D Value | P Value
+D-Value: 1.0980434246571285 | P-Value: 0.0343
+
+Expression: Neutral
+D Value | P Value
+D-Value: -0.04007141641669005 | P-Value: 0.0064
+
