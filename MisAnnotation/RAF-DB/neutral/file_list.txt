@@ -1,2 +1,0 @@
-test_3054_aligned_0_2_0.jpg
-test_2869_aligned_0_2_0.jpg
